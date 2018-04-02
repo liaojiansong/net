@@ -24,7 +24,8 @@
         "topthink/think-migration": "1.*",
         "topthink/think-queue": "1.*",
         "topthink/think-helper": "1.*",
-        "almasaeed2010/adminlte": "~2.4"
+        "almasaeed2010/adminlte": "~2.4",
+        "needim/noty": "^3.1"
     },
     "autoload": {
         "psr-4": {
