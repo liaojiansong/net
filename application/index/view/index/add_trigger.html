@@ -5,6 +5,20 @@
 {{/block}}
 
 {{block name="main"}}
+<style>
+    .source-l select {
+        display: inline;
+        width: 100px;
+        height: 44px;
+        margin: 0 13px 0 10px
+    }
+
+    .source-l input {
+        width: 228px;
+        display: inline
+    }
+
+</style>
 <!-- 内容墙,包含顶部面板 -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -39,23 +53,58 @@
                             <form role="form">
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">触发器名称</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1"
-                                               placeholder="Enter email">
+                                        <label for="trigger-name">触发器名称</label>
+                                        <input type="name" class="form-control" id="trigger-name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">数据流类型</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" >
+                                        <label for="data">数据流类型</label>
+                                        <input type="text" class="form-control" id="data-type">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">触发条件</label>
-                                        <input type="text" class="form-control" id="auth_info" >
+                                        <label for="threshold" class="icon-required col-sm-3">触发条件：</label>
+                                        <div class="col-sm-9 source-l">
+                                            <span>选中数据流值</span>
+                                            <select class="form-control" name="type" id="type-select">
+                                                <option value=">">></option>
+                                                <option value=">=" selected="selected">>=</option>
+                                                <option value="<"><</option>
+                                                <option value="<="><=</option>
+                                                <option value="==">==</option>
+                                                <option value="inout">inout</option>
+                                                <option value="frozen">frozen</option>
+                                                <option value="change">change</option>
+                                                <option value="live">live</option>
+                                            </select>
+                                            <input type="text" class="form-control" id="threshold" name="threshold" placeholder="数据值" value="50"/>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="device_desc">报警方式:</label>
+                                        <label>报警方式:</label>
+                                        <div class="form-group">
+                                            <label>
+                                                <input type="checkbox" class="flat-red" checked>
+                                                <span style="margin-left: 1.5em">邮件</span>
+                                            </label>
+                                            <span style="margin-left: 2em"></span>
+                                            <label>
+                                                <input type="checkbox" class="flat-red">
+                                                <span style="margin-left: 1.5em">短信</span>
+                                            </label>
+                                        </div>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="email">邮箱</label>
+                                        <input type="email" class="form-control" id="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">手机号</label>
+                                        <input type="text" class="form-control" id="phone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="msg">报警信息</label>
+                                        <input type="text" class="form-control" id="msg">
+                                    </div>
                                 </div>
                                 <!-- /.box-body -->
 
@@ -82,48 +131,23 @@
     </section>
     <!-- /.content -->
 </div>
-<div class="modal fade" id="add-mac" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">添加设备</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="control-label">设备名称:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">鉴权信息:</label>
-                        <input type="text" class="form-control" id="message-text">
-                    </div>
-                    <div class="form-group">
-                        <label>数据类型:</label>
-                        <select class="form-control">
-                            <option>温度</option>
-                            <option>湿度</option>
-                            <option>电流</option>
-                            <option>电压</option>
-                            <option>磁场</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="control-label">描述:</label>
-                        <input type="text" class="form-control" id="description">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary"> 接入设备</button>
-            </div>
-        </div>
-    </div>
-</div>
 {{/block}}
 {{block name="js"}}
-
+<script>
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+    })
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+        checkboxClass: 'icheckbox_minimal-red',
+        radioClass: 'iradio_minimal-red'
+    })
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass: 'iradio_flat-green'
+    })
+</script>
 {{/block}}

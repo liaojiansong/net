@@ -10,8 +10,11 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="__STATIC__/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="__STATIC__/dist/css/skins/_all-skins.min.css">
-	<link rel="stylesheet" href="__VENDOR__/toastr-master/build/toastr.css">
-    <link rel="stylesheet" href="__STATIC__/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!--吐司提示插件-->
+    <link rel="stylesheet" href="__STATIC__/plugins/toastr/toastr.css">
+	<!--网页加载进度条插件-->
+	<link rel="stylesheet" href="__STATIC__/plugins/pace/pace.css">
+	<link rel="stylesheet" href="__STATIC__/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="__STATIC__/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -24,7 +27,8 @@
     <link rel="stylesheet" href="__STATIC__/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="__STATIC__/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-
+	<!-- iCheck for checkboxes and radio inputs -->
+	<link rel="stylesheet" href="__STATIC__/plugins/iCheck/all.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -188,13 +192,14 @@
         reserved.
     </footer>
 </div>
-<link href="__VENDOR__/needim/noty/lib/noty.css" rel="stylesheet">
-<script src="__VENDOR__/needim/noty/lib/noty.js" type="text/javascript"></script>
-<!--<script src="__VENDOR__/toastr-master/toastr.js"></script>-->
 <!-- jQuery 3 -->
 <script src="__STATIC__/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="__STATIC__/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!--吐司提示插件-->
+<script src="__STATIC__/plugins/toastr/toastr.js"></script>
+<!--网页加载进度条插件-->
+<script src="__STATIC__/plugins/pace/pace.js"></script>
 <!-- SlimScroll -->
 <script src="__STATIC__/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -203,7 +208,8 @@
 <script src="__STATIC__/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="__STATIC__/dist/js/demo.js"></script>
-<script src="__VENDOR__/toastr-master/toastr.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="__STATIC__/plugins/iCheck/icheck.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.sidebar-menu').tree()
