@@ -35,11 +35,77 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_1">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4><strong><i class="fa fa-tablet margin-r-5"></i> 设备名称</strong></h4>
+                                    <p class="text-muted">
+                                        酷狗摄像机
+                                    </p>
 
+                                    <hr>
+
+
+                                    <h4><strong><i class="fa fa-paint-brush margin-r-5"></i>鉴权信息</strong></h4>
+
+                                    <p>kugou</p>
+
+                                    <hr>
+
+                                    <h4><strong><i class="fa fa-plus margin-r-5"></i> 创建时间</strong></h4>
+
+                                    <p>
+                                        2018-3-5 23:32:46
+                                    </p>
+
+                                    <hr>
+
+                                    <h4><strong><i class="fa fa-link margin-r-5"></i>设备API地址</strong>
+                                    </h4>
+
+                                    <p>http://api.heclouds.com/devices/24501404</p>
+
+                                    <hr>
+                                    <h4><strong><i class="fa fa-database margin-r-5"></i>累计采集数据</strong></h4>
+
+                                    <p>4955566条</p>
+
+                                    <hr>
+
+                                    <h4><strong><i class="fa fa-file-text-o margin-r-5"></i>详细描述</strong></h4>
+
+                                    <textarea class="form-control" id="device_desc" data-parsley-maxlength="512"
+                                              name="device_desc" rows="5" placeholder="设备描述"
+                                              data-parsley-id="13" readonly>
+                                        中国第一台好机器
+                                    </textarea>
+
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.tab-pane -->
                         <div class="tab-pane" id="tab_2">
-
+                            <div class="row">
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header"><span class="data-value" id="totalData">0</span>条
+                                        </h5>
+                                        <span class="description-text">设备数据总数</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header"><span class="data-value"
+                                                                             id="new_yestoday">0</span>条</h5>
+                                        <span class="description-text">昨日新增</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="description-block">
+                                        <h5 class="description-header"><span class="data-value"
+                                                                             id="new_last7day">0</span>条</h5>
+                                        <span class="description-text">最近7日新增</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.tab-pane -->
                     </div>
@@ -47,57 +113,11 @@
                 </div>
                 <!-- nav-tabs-custom -->
             </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-                Footer
-            </div>
-            <!-- /.box-footer-->
         </div>
         <!-- /.box -->
 
     </section>
     <!-- /.content -->
-</div>
-<div class="modal fade" id="add-mac" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">添加设备</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="control-label">设备名称:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">鉴权信息:</label>
-                        <input type="text" class="form-control" id="message-text">
-                    </div>
-                    <div class="form-group">
-                        <label>数据类型:</label>
-                        <select class="form-control">
-                            <option>温度</option>
-                            <option>湿度</option>
-                            <option>电流</option>
-                            <option>电压</option>
-                            <option>磁场</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="control-label">描述:</label>
-                        <input type="text" class="form-control" id="description">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary"> 接入设备</button>
-            </div>
-        </div>
-    </div>
 </div>
 {{/block}}
 

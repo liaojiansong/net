@@ -8,7 +8,7 @@ class Index extends Controller
 {
     public function index()
     {
-        return $this->fetch('device-list');
+        return $this->fetch('device-detail');
     }
 
     public function edit()
