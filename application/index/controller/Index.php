@@ -1,14 +1,14 @@
 <?php
 namespace app\index\controller;
 
-use think\Controller;
-use think\Request;
+use app\common\BaseController;
 
-class Index extends Controller
+
+class Index extends BaseController
 {
     public function index()
     {
-        return $this->fetch('device-detail');
+        return $this->fetch('device-list');
     }
 
     public function edit()
@@ -28,6 +28,18 @@ class Index extends Controller
 
     public function delete()
     {
-        return '删除成功';
+        return self::ajaxMsg();
+    }
+
+    public static function sendOrder()
+    {
+        $order_info = request()->get();
+        $msg = "向设备ID:{$order_info['device_id']}发送命令成功";
+        return self::ajaxMsg(true, $msg);
+    }
+
+    public static function addDevice()
+    {
+        return self::ajaxMsg(true, '设备添加成功');
     }
 }

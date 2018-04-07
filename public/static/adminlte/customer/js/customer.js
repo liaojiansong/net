@@ -24,15 +24,17 @@ function deleteAlert($url,$id,$_obj) {
                     data: {'id':$id},
                     type: 'get',
                     dataType: 'json',
-                    success: function (data) {
-                        swal("删除！", "你的虚拟文件已经被删除。",
-                            "success").then(function () {
-                            deleteOneTr($_obj);
-                        });
+                    success: function (info) {
+                        if (info.flag === true) {
+                            swal("删除成功！", info.msg, "success").then(function () {
+                                deleteOneTr($_obj);
+                            });
+                        } else {
+                            swal("WTF", info.msg, "error");
+                        }
                     },
                     error: function () {
-                        swal("WTF", "删除失败了",
-                            "error");
+                        swal("WTF", "删除失败了", "error");
                     }
                 });
             case 'cancel':
