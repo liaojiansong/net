@@ -10,7 +10,8 @@ namespace app\index\controller;
 
 
 use app\common\BaseController;
-use function request;
+use app\index\model\User;
+
 
 class Login extends BaseController
 {
@@ -34,10 +35,28 @@ class Login extends BaseController
 
     }
 
-    private function checkPassword($phone, $password)
+    public function checkPassword($phone = '', $password = '')
     {
-//        return []
-
+        $user = User::where('phone', '18577387793')->find();
+        if ($user) {
+            if ($user['phone'] == $phone && $user['password'] == md5($password)) {
+                // TODO 拉取权限,session
+                return [
+                    'flag' => false,
+                    'msg' => '密码错误',
+                ];
+            } else {
+                return [
+                    'flag' => false,
+                    'msg' => '密码错误',
+                ];
+            }
+        } else {
+            return [
+                'flag' => false,
+                'msg' => '用户不存在',
+            ];
+        }
     }
 
 
