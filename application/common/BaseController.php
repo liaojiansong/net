@@ -11,8 +11,9 @@ namespace app\common;
 
 use think\Controller;
 use think\Request;
-use function in_array;
-use function strtolower;
+use think\Session;
+use think\View;
+
 
 class BaseController extends Controller
 {
@@ -22,6 +23,14 @@ class BaseController extends Controller
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
+        $this->checkLogin();
+        $this->shareUserInfo();
+    }
+
+    public function shareUserInfo()
+    {
+        $user_info = Session::get('user_info');
+        View::share(['id' => $user_info['id'], 'username' => $user_info['username']]);
     }
 
     /**
@@ -59,6 +68,13 @@ class BaseController extends Controller
 
         }
 
+    }
+
+    protected function checkLogin()
+    {
+        if (!Session::has('user_info')) {
+            $this->redirect('index/login/index');
+        }
     }
 
 }
