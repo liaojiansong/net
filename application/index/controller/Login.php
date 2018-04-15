@@ -1,14 +1,14 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Administrator
+ * UserModel: Administrator
  * Date: 2018/4/7
  * Time: 21:48
  */
 
 namespace app\index\controller;
 
-use app\index\model\User;
+use app\index\model\UserModel;
 use think\Controller;
 use think\Session;
 
@@ -28,12 +28,28 @@ class Login extends Controller
     public function createUser()
     {
         $param = $this->request->param();
-        // todo 数据验证
-        if (User::createUser($param)) {
-            $this->redirect('index/login/index');
+        $flag = $this->validate($param, 'CommonValidate.add_user');
+        // 验证成功
+        if ($flag === true) {
+            $res = UserModel::newCreate($param);
+            if ($res) {
+                $is_success = true;
+                $msg = "注册成功,正在跳转登录界面";
+                $url = url('index/login/index');
+            } else {
+                $is_success = false;
+                $msg = '注册失败';
+            }
+            // 验证失败
         } else {
-            $this->redirect('index/login/register');
+            $is_success = false;
+            $msg = $flag;
         }
+        return [
+            'flag' => $is_success,
+            'msg' => $msg,
+            'url' => $url ?? null
+        ];
     }
 
     // 前端ajax验证登录
@@ -52,7 +68,7 @@ class Login extends Controller
 
     public function checkPassword($phone, $password)
     {
-        $user = User::where('phone', $phone)->find();
+        $user = UserModel::where('phone', $phone)->find();
         if ($user) {
             if ($user['phone'] == $phone && $user['password'] == $password) {
                 // TODO 拉取权限,session

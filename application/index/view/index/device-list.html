@@ -13,9 +13,9 @@
 			设备列表
 		</h1>
 		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li><a href="#">Examples</a></li>
-			<li class="active">404 error</li>
+			<li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+			<li><a href="#">设备管理</a></li>
+			<li class="active">设备列表</li>
 		</ol>
 	</section>
 	
@@ -63,14 +63,15 @@
 							</tr>
 							</thead>
 							<tbody>
+							{{volist name='devices_list' id='value'}}
 							<tr>
 								<td class="text-center">
-									<input type="text" readonly name="device_id" value="452368" class="form-control">
+									<input type="text" readonly name="device_id" value="{{$value.id}}" class="form-control">
 								</td>
 								<td>
-									<span class="info-box-icon bg-aqua"><i class="fa fa-camera"></i></span>
+									<span class="info-box-icon bg-primary"><i class="fa {{$value.icon}}"></i></span>
 									<div class="info-box-content">
-										<span class="info-box-text">设备名称：酷狗摄像机</span> <span class="info-box-text">设备ID：34656514514</span> <span class="info-box-text">创建时间：20181212</span>
+										<span class="info-box-text">设备名称：{{$value.device_name}}</span><span class="info-box-text">创建时间：{{$value.create_time}}</span><span class="info-box-text">设备描述：{{$value.device_description}}</span>
 									</div>
 								</td>
 								<td>
@@ -78,33 +79,18 @@
 								</td>
 								<td>
 									<div class="text-center">
-										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="编辑" href="{{:url('edit')}}"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="详情" href="{{:url('detail')}}"><i class="glyphicon glyphicon-info-sign"></i></a> <a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="添加触发器" href="{{:url('addTrigger')}}"><i class="glyphicon glyphicon-inbox"></i></a>
-										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="下发命令" onclick="DeviceList.showOrderModal($(this))"><i class="glyphicon glyphicon-send"></i></a> <a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="删除" onclick="deleteAlert('{{:url(\'delete\')}}',1,$(this))"><i class="glyphicon glyphicon-trash"></i></a>
+										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="编辑" href="{{:url('edit',['id'=>$value.id])}}"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="详情" href="{{:url('detail',['id'=>$value.id])}}"><i class="glyphicon glyphicon-info-sign"></i></a>
+										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="添加触发器" href="{{:url('addTrigger',['id'=>$value.id])}}"><i class="glyphicon glyphicon-inbox"></i></a> <a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="下发命令" onclick="DeviceList.showOrderModal($(this))"><i class="glyphicon glyphicon-send"></i></a>
+										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="删除" onclick="deleteAlert('{{:url(\'delete\')}}','{{$value.id}}',$(this))"><i class="glyphicon glyphicon-trash"></i></a>
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td class="text-center">
-									<input type="text" readonly name="device_id" value="12222" class="form-control">
-								</td>
-								<td>
-									<span class="info-box-icon bg-aqua"><i class="fa fa-camera"></i></span>
-									<div class="info-box-content">
-										<span class="info-box-text">设备名称：酷狗摄像机</span> <span class="info-box-text">设备ID：34656514514</span> <span class="info-box-text">创建时间：20181212</span>
-									</div>
-								</td>
-								<td>
-									<p>在线</p>
-								</td>
-								<td>
-									<div class="text-center">
-										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="编辑" href="{{:url('edit')}}"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="详情" href="{{:url('detail')}}"><i class="glyphicon glyphicon-info-sign"></i></a> <a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="添加触发器" href="{{:url('addTrigger')}}"><i class="glyphicon glyphicon-inbox"></i></a>
-										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="下发命令" onclick="DeviceList.showOrderModal($(this))"><i class="glyphicon glyphicon-send"></i></a> <a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="删除" onclick="deleteAlert('{{:url(\'delete\')}}',1,$(this))"><i class="glyphicon glyphicon-trash"></i></a>
-									</div>
-								</td>
-							</tr>
+							{{/volist}}
 							</tbody>
 						</table>
+						<div class="pull-right">
+							{{$devices_list->render()}}
+						</div>
 					</div>
 					<!-- /.box-body -->
 				</div>
@@ -177,9 +163,7 @@
 
 {{block name="js"}}
 <script type="text/javascript">
-    $(document).ready(function () {
-        DeviceList.addDevice();
-    });
+
     let DeviceList = {
         /**
          * 异步添加设备
@@ -197,7 +181,7 @@
                         if (info.flag === true) {
                             $('#add-device').modal('hide');
                             swal("操作成功！", info.msg, "success").then(function () {
-                                location.reload();
+                                // location.reload();
                             });
                         } else {
                             swal("WTF,失败了?!!", info.msg, "error");
