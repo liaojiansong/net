@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
+ * Created by Jason.
  * UserModel: Administrator
  * Date: 2018/4/7
  * Time: 21:48
@@ -12,19 +12,31 @@ use app\index\model\UserModel;
 use think\Controller;
 use think\Session;
 
-
 class Login extends Controller
 {
+    /**
+     * 渲染登入界面
+     * @return mixed
+     */
     public function index()
     {
         return $this->fetch('login');
     }
 
+    /**
+     * 渲染注册界面
+     * @return mixed
+     */
     public function register()
     {
         return $this->fetch('register');
     }
 
+    /**
+     * 创建用户(响应ajax)
+     * @return array
+     * 返回提示信息
+     */
     public function createUser()
     {
         $param = $this->request->param();
@@ -52,7 +64,9 @@ class Login extends Controller
         ];
     }
 
-    // 前端ajax验证登录
+    /**
+     * 检测是登入数据
+     */
     public function checkAuth()
     {
         $phone = request()->param('phone');
@@ -66,6 +80,13 @@ class Login extends Controller
 
     }
 
+    /**
+     * 检验密码(响应ajax)
+     * @param $phone
+     * @param $password
+     * @return array
+     * 返回提示信息
+     */
     public function checkPassword($phone, $password)
     {
         $user = UserModel::where('phone', $phone)->find();
@@ -95,12 +116,27 @@ class Login extends Controller
         }
     }
 
-
+    /**
+     * 推出登入
+     * 注销session
+     */
     public function loginOut()
     {
         Session::delete('user_info');
         $this->redirect('login/index');
     }
 
-
+    /**
+     * 验证手机号是否注册(响应ajax)
+     * @return null|string
+     */
+    public static function checkPhoneExist()
+    {
+        $flag = UserModel::where('phone', request()->param('phone'))->find();
+        if ($flag == null) {
+            return null;
+        } else {
+            return '用户已存在';
+        }
+    }
 }

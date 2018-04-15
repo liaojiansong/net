@@ -29,25 +29,29 @@
 		<form action="{{:url('index/login/createUser')}}" method="post" id="user">
 			<div class="form-group has-feedback">
 				<input type="text" name="phone" class="form-control" placeholder="手机号"> <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+				<p id="msg_phone" class="text-red"></p>
 			</div>
 			<div class="form-group has-feedback">
 				<input type="text" name="username" class="form-control" placeholder="用户名"> <span class="glyphicon glyphicon-user form-control-feedback"></span>
+				<p id="msg_username" class="text-red"></p>
 			</div>
 			<div class="form-group has-feedback">
 				<input type="email" name="email" class="form-control" placeholder="邮箱"> <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 			</div>
 			<div class="form-group has-feedback">
 				<input type="password" name="password" class="form-control" placeholder="密码"> <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+				<p id="msg_password" class="text-red"></p>
 			</div>
 			<div class="form-group has-feedback">
 				<input type="password" name="confirm_password" class="form-control" placeholder="确认密码"> <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+				<p id="msg_cpwd" class="text-red"></p>
 			</div>
 			<div class="row">
 				<div class="col-xs-8">
 				</div>
 				<!-- /.col -->
 				<div class="col-xs-4">
-					<button type="button" id="btn" class="btn btn-primary btn-block btn-flat">注册</button>
+					<button type="submit" id="btn" class="btn btn-primary btn-block btn-flat">注册</button>
 				</div>
 				<!-- /.col -->
 			</div>
@@ -67,40 +71,25 @@
 <script src="__STATIC__/plugins/iCheck/icheck.min.js"></script>
 <!--甜心提示-->
 <script src="__STATIC__/plugins/sweetalter/sweetalert.min.js"></script>
+<!--甜心提示-->
+<script src="__STATIC__/plugins/sweetalter/sweetalert.min.js"></script>
+<!--奈斯验证-->
+<script src="__STATIC__/plugins/nice-validator/src/jquery.validator.js"></script>
+<!--奈斯验证中文-->
+<script src="__STATIC__/plugins/nice-validator/dist/local/zh-CN.js"></script>
+<!--用户自定义js-->
+<script src="__STATIC__/customer/js/customer.js"></script>
 <script>
     $(function () {
-        Main.validateUser();
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' /* optional */
         });
+        let url = "{{:url('index/login/createUser')}}";
+        let url_for_phone = "{{:url('index/login/checkPhoneExist')}}";
+        validateRegister(url, url_for_phone);
     });
-    Main = {
-        validateUser() {
-            $('#btn').on('click', function () {
-                // $('#user').submit();
-                $.ajax({
-                    url: "{{:url('createUser')}}",
-                    data: $('#user').serializeArray(),
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (info) {
-                        if (info.flag === true) {
-                            swal("操作成功！", info.msg, "success").then(function () {
-                                window.location.href = info.url;
-                            });
-                        } else {
-                            swal("WTF,失败了?!!", info.msg, "error");
-                        }
-                    },
-                    error: function () {
-                        swal("哎呀", "失败了失败了", "error");
-                    }
-                });
-            })
-        }
-    };
 </script>
 </body>
 </html>

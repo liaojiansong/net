@@ -22,9 +22,6 @@
 
     <!-- Main content -->
     <section class="content">
-
-        <!-- Default box -->
-        <div class="box">
             <div class="box-body">
                 <!-- Custom Tabs -->
                 <div class="nav-tabs-custom">
@@ -35,26 +32,26 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_1">
-                            <div class="row">
-                                <div class="col-md-6">
+	                        <div class="row detail">
+		                        <div class="col-md-8">
                                     <h4><strong><i class="fa fa-tablet margin-r-5"></i> 设备名称</strong></h4>
                                     <p class="text-muted">
-                                        酷狗摄像机
+	                                    {{$one.device_name}}
                                     </p>
 
                                     <hr>
 
 
                                     <h4><strong><i class="fa fa-paint-brush margin-r-5"></i>鉴权信息</strong></h4>
-
-                                    <p>kugou</p>
+			
+			                        <p>{{$one.device_auth}}</p>
 
                                     <hr>
 
                                     <h4><strong><i class="fa fa-plus margin-r-5"></i> 创建时间</strong></h4>
 
                                     <p>
-                                        2018-3-5 23:32:46
+	                                    {{$one.create_time}}
                                     </p>
 
                                     <hr>
@@ -76,7 +73,7 @@
                                     <textarea class="form-control" id="device_desc" data-parsley-maxlength="512"
                                               name="device_desc" rows="5" placeholder="设备描述"
                                               data-parsley-id="13" readonly>
-                                        中国第一台好机器
+                                        {{$one.device_description}}
                                     </textarea>
 
                                 </div>
@@ -113,9 +110,6 @@
                 </div>
                 <!-- nav-tabs-custom -->
             </div>
-        </div>
-        <!-- /.box -->
-
     </section>
     <!-- /.content -->
 </div>

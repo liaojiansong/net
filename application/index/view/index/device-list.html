@@ -65,19 +65,20 @@
 							<tbody>
 							{{volist name='devices_list' id='value'}}
 							<tr>
-								<td class="text-center">
-									<input type="text" readonly name="device_id" value="{{$value.id}}" class="form-control">
+								<td class="td-status">
+									<input type="text" readonly name="device_id" value="{{$value.id}}" class="form-control" style="display: none">
+									<p class="text-center">{{$value.id}}</p>
 								</td>
 								<td>
 									<span class="info-box-icon bg-primary"><i class="fa {{$value.icon}}"></i></span>
 									<div class="info-box-content">
-										<span class="info-box-text">设备名称：{{$value.device_name}}</span><span class="info-box-text">创建时间：{{$value.create_time}}</span><span class="info-box-text">设备描述：{{$value.device_description}}</span>
+										<span class="info-box-text span-info">设备名称：{{$value.device_name}}</span><span class="info-box-text span-info">创建时间：{{$value.create_time}}</span><span class="info-box-text span-info">设备描述：{{$value.device_description}}</span>
 									</div>
 								</td>
-								<td>
-									<p>在线</p>
+								<td class="td-status">
+									{{switch name="$value.status"}} {{case value="0"}}<p><i class="fa fa-circle text-gray"></i> &nbsp;离线</p>{{/case}} {{case value="1"}}<p><i class="fa fa-circle text-green"></i> &nbsp;在线</p>{{/case}} {{case value="2"}}value2{{/case}} {{case value="3"}}value2{{/case}} {{/switch}}
 								</td>
-								<td>
+								<td class="td-icon">
 									<div class="text-center">
 										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="编辑" href="{{:url('edit',['id'=>$value.id])}}"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="详情" href="{{:url('detail',['id'=>$value.id])}}"><i class="glyphicon glyphicon-info-sign"></i></a>
 										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="添加触发器" href="{{:url('addTrigger',['id'=>$value.id])}}"><i class="glyphicon glyphicon-inbox"></i></a> <a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="下发命令" onclick="DeviceList.showOrderModal($(this))"><i class="glyphicon glyphicon-send"></i></a>
@@ -128,7 +129,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary" id="add_device_btn"> 接入设备</button>
+						<button type="submit" class="btn btn-primary" id="add_device_btn"> 接入设备</button>
 					</div>
 				</div>
 			</form>
@@ -162,36 +163,39 @@
 {{/block}}
 
 {{block name="js"}}
-<script type="text/javascript">
-
+<script>
+    $(function () {
+        DeviceList.addDevice("{{:url('addDevice')}}");
+    });
     let DeviceList = {
-        /**
-         * 异步添加设备
-         * 当前模态框
-         */
-        addDevice: function () {
-            $('#add_device_btn').on('click', function () {
-                // TODO 表单验证
-                $.ajax({
-                    url: "{{:url('addDevice')}}",
-                    data: $('#add_device_form').serializeArray(),
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (info) {
-                        if (info.flag === true) {
-                            $('#add-device').modal('hide');
-                            swal("操作成功！", info.msg, "success").then(function () {
-                                // location.reload();
-                            });
-                        } else {
-                            swal("WTF,失败了?!!", info.msg, "error");
+        addDevice(url) {
+            $("#add-device").validator({
+                fields: {
+                    device_name: "设备名称:required",
+                    device_auth: "鉴权信息:required",
+                    device_description: "设备描述:required",
+                },
+                valid: function (form) {
+                    let me = this;
+                    me.holdSubmit();
+                    $.ajax({
+                        url: url,
+                        data: $(form).serialize(),
+                        type: "POST",
+                        success: function (info) {
+                            if (info.flag === true) {
+                                swal("验证通过！", info.msg, "success").then(function () {
+                                    me.holdSubmit(false);
+                                    form.submit();
+                                });
+                            } else {
+                                me.holdSubmit(false);
+                                swal("WTF,验证失败了?!!", info.msg, "error");
+                            }
                         }
-                    },
-                    error: function () {
-                        swal("哎呀", "失败了失败了", "error");
-                    }
-                });
-            })
+                    });
+                }
+            });
         },
         /**
          * 显示发送命令模态框
@@ -213,6 +217,10 @@
         sendOrder: function (_obj) {
             let $device_id = $('#device_id').val();
             let $order_text = _obj.closest('form').find('[name="order_text"]').val();
+            if ($order_text === '' || $order_text === null || $order_text === ' ') {
+                toastr.warning('发送内容不能为空');
+                return;
+            }
             let data = `device_id=${$device_id}&order_text=${$order_text}`;
             $.ajax({
                 url: "{{:url('sendOrder')}}",
@@ -222,17 +230,13 @@
                     if (info.flag === true) {
                         $('#send-order').modal('hide');
                         swal("发送成功！", info.msg, "success").then(function () {
-
                         });
                     } else {
                         swal("WTF,失败了?!!", info.msg, "error");
                     }
                 },
-                error: function () {
-                    swal("哎呀", "发送失败了失败了", "error");
-                }
             });
-        }
+        },
     }
 </script>
 

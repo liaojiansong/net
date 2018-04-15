@@ -11,9 +11,9 @@
     /* Global configuration
      */
     $.validator.config({
-        //stopOnError: true,
-        //focusCleanup: true,
-        //theme: 'yellow_right',
+        stopOnError: true,
+        focusCleanup: true,
+        theme: 'simple_right',
         //timely: 2,
 
         // Custom rules
