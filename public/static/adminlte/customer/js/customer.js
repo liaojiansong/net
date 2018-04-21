@@ -177,7 +177,13 @@ function validateRegister(url, url_for_phone) {
     });
 }
 
+/**
+ * 表单自动填充
+ * @param data
+ * 需要填充的数据(json格式)
+ */
 function popInput(data) {
+    // TODO 还要兼容多种情况
     const target = $('.row').find('input,select,textarea');
     const info = $.parseJSON(data);
     $.each(info, function (index, value) {

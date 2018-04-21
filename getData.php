@@ -8,6 +8,8 @@
 
 $redis = new Redis();
 $redis->connect('127.0.0.1');
+$mysql = new mysqli();
+$mysql->connect('127.0.0.1', 'root', '123456', 'jasonnet');
 while (true) {
 
     $devices = $redis->keys('^H_devices_');
@@ -23,9 +25,6 @@ while (true) {
             $device_data_box[$value] = $redis->getRange($value, 0, -1);
         }
     }
-
-    $mysql = new mysqli();
-    $mysql->connect('127.0.0.1', 'root', '123456', 'jasonnet');
 
     // 获取触发器信息
     $sql = "select 'device_id' 'max' 'min' 'eq' from TriggerBox ";

@@ -31,7 +31,7 @@
                         <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" id="tab_1">
+	                    <div class="tab-pane" id="tab_1">
 	                        <div class="row detail">
 		                        <div class="col-md-8">
                                     <h4><strong><i class="fa fa-tablet margin-r-5"></i> 设备名称</strong></h4>
@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab_2">
+	                    <div class="tab-pane active" id="tab_2">
                             <div class="row">
                                 <div class="col-sm-4 border-right">
                                     <div class="description-block">
@@ -103,6 +103,11 @@
                                     </div>
                                 </div>
                             </div>
+		                    <div class="row">
+			                    <div class="col-md-12" id="container">
+			
+			                    </div>
+		                    </div>
                         </div>
                         <!-- /.tab-pane -->
                     </div>
@@ -117,6 +122,59 @@
 
 {{block name="js"}}
 <script>
+    // 图表配置
+    let chart = null; // 定义全局变量
+    $(document).ready(function () {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'spline',
+                events: {
+                    load: requestData // 图表加载完毕后执行的回调函数
+                }
+            },
+            title: {
+                text: 'Live random data'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150,
+                maxZoom: 20 * 1000
+            },
+            yAxis: {
+                minPadding: 0.2,
+                maxPadding: 0.2,
+                title: {
+                    text: 'Value',
+                    margin: 80
+                }
+            },
+            series: [{
+                name: '随机数据',
+                data: []
+            }]
+        });
 
+
+        function requestData() {
+            $.ajax({
+                url: "{{:url('liveData')}}",
+                success: function (point) {
+                    var series = chart.series[0],
+                        shift = series.data.length > 20; // 当数据点数量超过 20 个，则指定删除第一个点
+
+                    // 新增点操作
+                    //具体的参数详见：https://api.hcharts.cn/highcharts#Series.addPoint
+                    chart.series[0].addPoint(point, true, shift);
+
+                    // 一秒后继续调用本函数
+                    setTimeout(requestData, 3000);
+                },
+                cache: false
+            });
+        }
+    });
+
+    
 </script>
 {{/block}}
