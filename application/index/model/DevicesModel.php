@@ -28,5 +28,12 @@ class DevicesModel extends BaseModel
         $instance->allowField(self::$fillable)->save($param, ['id' => $id]);
     }
 
+    public function deviceData()
+    {
+        return $this->hasMany('DeviceDataMode','devices_id');
+    }
+
+
+
 
 }

@@ -41,8 +41,8 @@ class DealDataAndInsert
             $live_time = $this->redis->ttl($key);
             if ($len > 1) {
                 if ($live_time < 5) {
-                    //剪切走这一部分数据
-                    for ($i = 1; $i <= $len; $i++) {
+                    //TODO 若是该键无数据,会被自动清除,所以要留一个
+                    for ($i = 1; $i < $len; $i++) {
                         array_push($one_data, $this->redis->rPop($key));
                     }
                 } else {
@@ -50,7 +50,7 @@ class DealDataAndInsert
                     if ($len > 50) {
                         $len = 50;
                     }
-                    for ($i = 0; $i <= $len; $i++) {
+                    for ($i = 1; $i < $len; $i++) {
                         array_push($one_data, $this->redis->rPop($key));
                     }
                 }

@@ -3,7 +3,9 @@
 namespace app\index\controller;
 
 use app\common\BaseController;
+use app\index\model\DeviceDataMode;
 use app\index\model\DevicesModel;
+
 
 
 class Index extends BaseController
@@ -56,7 +58,20 @@ class Index extends BaseController
     {
         $id = $this->request->param('id');
         $one = DevicesModel::get($id)->hidden(['create_time', 'update_time']);
-        $this->assign('one', $one);
+        $items = $one->deviceData()->limit(15)->select();
+        $all_count = DeviceDataMode::getCount($id);
+
+        $info = [];
+        foreach ($items as $value) {
+            array_push($info, $value->data_content);
+        }
+
+        $this->assign([
+            'one' => $one,
+            'item' =>$items,
+            'info' =>json_encode($info),
+            'all_count' => $all_count,
+        ]);
         return $this->fetch('device-detail');
     }
 
