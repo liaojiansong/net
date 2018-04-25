@@ -54,13 +54,13 @@
 
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="__STATIC__/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> <span class="hidden-xs">{{$username}}</span>
+                            <img src="__STATIC__/dist/img/jason.jpg" class="user-image" alt="User Image"> <span class="hidden-xs">{{$username}}</span>
                         </a>
                         <ul class="dropdown-menu">
 	                        <!-- UserModel image -->
                             <li class="user-header">
-                                <img src="__STATIC__/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                                <img src="__STATIC__/dist/img/jason.jpg" class="img-circle" alt="User Image">
+    
                                 <p>
                                     物联网开发者
                                     <small>从横物联网界20年</small>
@@ -109,7 +109,7 @@
                     <ul class="treeview-menu">
                         <li><a href="{{:url('product/index')}}"><i class="fa fa-circle-o"></i> 产品详情</a></li>
                         <li><a href="{{:url('product/edit')}}"><i class="fa fa-circle-o"></i> 产品编辑</a></li>
-                        <li><a href="__STATIC__/pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a>
+                        <li><a href="{{:url('product/create')}}"><i class="fa fa-circle-o"></i> 产品添加</a>
                         </li>
                     </ul>
                 </li>
@@ -132,7 +132,7 @@
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="__STATIC__/pages/examples/setting_list.html"><i class="fa fa-circle-o"></i> 规则列表</a>
+                        <li><a href="{{:url('index/trigger/index')}}"><i class="fa fa-circle-o"></i> 规则列表</a>
                         </li>
                         <li><a href="__STATIC__/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> 添加触发器</a></li>
                         <li><a href="__STATIC__/pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a>

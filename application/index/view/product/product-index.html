@@ -152,79 +152,9 @@
 {{block name="js"}}
 <script>
     $(function () {
-        DeviceList.addDevice("{{:url('addDevice')}}");
+        info('{{$flag ?? 1}}');
+	    
     });
-    let DeviceList = {
-        addDevice(url) {
-            $("#add-device").validator({
-                fields: {
-                    device_name: "设备名称:required",
-                    device_auth: "鉴权信息:required",
-                    device_description: "设备描述:required",
-                },
-                valid: function (form) {
-                    let me = this;
-                    me.holdSubmit();
-                    $.ajax({
-                        url: url,
-                        data: $(form).serialize(),
-                        type: "POST",
-                        success: function (info) {
-                            if (info.flag === true) {
-                                swal("验证通过！", info.msg, "success").then(function () {
-                                    me.holdSubmit(false);
-                                    form.submit();
-                                });
-                            } else {
-                                me.holdSubmit(false);
-                                swal("WTF,验证失败了?!!", info.msg, "error");
-                            }
-                        }
-                    });
-                }
-            });
-        },
-        /**
-         * 显示发送命令模态框
-         * @param _obj
-         * 当前模态框
-         */
-        showOrderModal: function (_obj) {
-            $('#send-order').modal('show');
-            // 找到当前设备id
-            let device_id = _obj.closest('tr').find('input[name="device_id"]').val();
-            $('#device_id').val('');
-            $('#device_id').val(device_id);
-        },
-        /**
-         * 异步发送命令
-         * @param _obj
-         * 当前模态框
-         */
-        sendOrder: function (_obj) {
-            let $device_id = $('#device_id').val();
-            let $order_text = _obj.closest('form').find('[name="order_text"]').val();
-            if ($order_text === '' || $order_text === null || $order_text === ' ') {
-                toastr.warning('发送内容不能为空');
-                return;
-            }
-            let data = `device_id=${$device_id}&order_text=${$order_text}`;
-            $.ajax({
-                url: "{{:url('sendOrder')}}",
-                data: data,
-                type: 'get',
-                success: function (info) {
-                    if (info.flag === true) {
-                        $('#send-order').modal('hide');
-                        swal("发送成功！", info.msg, "success").then(function () {
-                        });
-                    } else {
-                        swal("WTF,失败了?!!", info.msg, "error");
-                    }
-                },
-            });
-        },
-    }
 </script>
 
 {{/block}}

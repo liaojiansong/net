@@ -195,3 +195,16 @@ function popInput(data) {
         })
     })
 }
+
+/**
+ * 添加或编辑成功时的提示
+ */
+function info(flag) {
+    console.log(flag);
+    if (flag === 'create_success') {
+        toastr.success('添加成功');
+    }else if(flag === 'update_success') {
+        toastr.success('编辑成功');
+    }
+
+}

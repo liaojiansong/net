@@ -128,26 +128,49 @@
 					<div class="col-lg-2">
 					</div>
 					<div class="col-lg-8">
-						<form role="form">
+						{{if condition="($action == 'create')"}}
+							<form role="form" method="post" action="{{:url('index/product/store')}}">
+						{{else /}}
+							<form role="form" method="post" action="{{:url('index/product/update')}}">
+						{{/if}}
 							<!-- text input -->
 							<div class="form-group">
-								<label>产品名称：</label> <input type="text" class="form-control" placeholder="Enter ...">
+								<label>产品名称：</label>
+								<input type="text" class="form-control" name="product_name" placeholder="请输入产品名称" data-rule="required">
 							</div>
-							
 							<div class="form-group">
-								<label>产品行业：</label> <input type="text" class="form-control" placeholder="Enter ...">
+								<label>产品行业</label>
+								<select class="form-control select2 select2-hidden-accessible"  name="product_industry" style="width: 100%;" tabindex="-1" aria-hidden="true" data-rule="required">
+									<option value="2">车载设备</option>
+									<option value="3">可穿戴设备</option>
+									<option value="4">医疗保健</option>
+									<option value="5">智能玩具</option>
+									<option value="6">新能源</option>
+									<option value="7">运动监控</option>
+									<option value="8">智能教育</option>
+									<option value="9">环境监控</option>
+									<option value="10">办公设备</option>
+									<option value="11">其他</option>
+								</select>
 							</div>
-							
-							<!-- input states -->
-							<div class="form-group has-success">
-								<label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Input with success</label> <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ..."> <span class="help-block">Help block with success</span>
+							<div class="form-group">
+								<label>产品描述</label>
+								<textarea class="form-control" name="product_description" rows="3" placeholder="Enter ..." data-rule="required"></textarea>
 							</div>
-							<div class="form-group has-warning">
-								<label class="control-label" for="inputWarning"><i class="fa fa-bell-o"></i> Input with warning</label> <input type="text" class="form-control" id="inputWarning" placeholder="Enter ..."> <span class="help-block">Help block with warning</span>
-							</div>
-							<div class="form-group has-error">
-								<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> Input with error</label>
-								<input type="text" class="form-control" id="inputError" placeholder="Enter ..."> <span class="help-block">Help block with error</span>
+							<!--&lt;!&ndash; input states &ndash;&gt;-->
+							<!--<div class="form-group has-success">-->
+								<!--<label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Input with success</label> <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ..."> <span class="help-block">Help block with success</span>-->
+							<!--</div>-->
+							<!--<div class="form-group has-warning">-->
+								<!--<label class="control-label" for="inputWarning"><i class="fa fa-bell-o"></i> Input with warning</label> <input type="text" class="form-control" id="inputWarning" placeholder="Enter ..."> <span class="help-block">Help block with warning</span>-->
+							<!--</div>-->
+							<!--<div class="form-group has-error">-->
+								<!--<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> Input with error</label>-->
+								<!--<input type="text" class="form-control" id="inputError" placeholder="Enter ..."> <span class="help-block">Help block with error</span>-->
+							<!--</div>-->
+							<div class="text-center">
+								<button type="reset" class="btn btn-default">取消</button>
+								<button type="submit" class="btn btn-info ">保存</button>
 							</div>
 						</form>
 					</div>
@@ -226,79 +249,8 @@
 {{block name="js"}}
 <script>
     $(function () {
-        DeviceList.addDevice("{{:url('addDevice')}}");
+    
     });
-    let DeviceList = {
-        addDevice(url) {
-            $("#add-device").validator({
-                fields: {
-                    device_name: "设备名称:required",
-                    device_auth: "鉴权信息:required",
-                    device_description: "设备描述:required",
-                },
-                valid: function (form) {
-                    let me = this;
-                    me.holdSubmit();
-                    $.ajax({
-                        url: url,
-                        data: $(form).serialize(),
-                        type: "POST",
-                        success: function (info) {
-                            if (info.flag === true) {
-                                swal("验证通过！", info.msg, "success").then(function () {
-                                    me.holdSubmit(false);
-                                    form.submit();
-                                });
-                            } else {
-                                me.holdSubmit(false);
-                                swal("WTF,验证失败了?!!", info.msg, "error");
-                            }
-                        }
-                    });
-                }
-            });
-        },
-        /**
-         * 显示发送命令模态框
-         * @param _obj
-         * 当前模态框
-         */
-        showOrderModal: function (_obj) {
-            $('#send-order').modal('show');
-            // 找到当前设备id
-            let device_id = _obj.closest('tr').find('input[name="device_id"]').val();
-            $('#device_id').val('');
-            $('#device_id').val(device_id);
-        },
-        /**
-         * 异步发送命令
-         * @param _obj
-         * 当前模态框
-         */
-        sendOrder: function (_obj) {
-            let $device_id = $('#device_id').val();
-            let $order_text = _obj.closest('form').find('[name="order_text"]').val();
-            if ($order_text === '' || $order_text === null || $order_text === ' ') {
-                toastr.warning('发送内容不能为空');
-                return;
-            }
-            let data = `device_id=${$device_id}&order_text=${$order_text}`;
-            $.ajax({
-                url: "{{:url('sendOrder')}}",
-                data: data,
-                type: 'get',
-                success: function (info) {
-                    if (info.flag === true) {
-                        $('#send-order').modal('hide');
-                        swal("发送成功！", info.msg, "success").then(function () {
-                        });
-                    } else {
-                        swal("WTF,失败了?!!", info.msg, "error");
-                    }
-                },
-            });
-        },
-    }
 </script>
 
 {{/block}}

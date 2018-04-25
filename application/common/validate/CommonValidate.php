@@ -27,6 +27,13 @@ class CommonValidate extends Validate
         'device_name' => 'require|max:25',
         'device_auth' => 'require',
 
+        /**
+         * 产品添加
+         */
+        'product_name' => 'require',
+        'product_industry' => 'require',
+        'product_description' => 'require',
+
 
     ];
     protected $message = [
@@ -48,11 +55,20 @@ class CommonValidate extends Validate
          */
         'device_name.require' => '设备名称必须',
         'device_auth.require' => '设备鉴权信息必须',
+
+        /**
+         * 产品添加
+         */
+        'product_name.require' => '产品名必须',
+        'product_industry.require' => '产品行业必须',
+        'product_description.require' => '产品描述必须',
+
     ];
     protected $scene = [
         'edit' => ['name', 'age'],
         'add_user' => ['name', 'phone', 'email', 'password', 'confirm_password'],
         'add_device' => ['device_name', 'device_auth'],
+        'add_product' => ['product_name', 'product_industry','product_description'],
     ];
 
 }
