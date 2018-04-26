@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="__STATIC__/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 	<!-- iCheck for checkboxes and radio inputs -->
 	<link rel="stylesheet" href="__STATIC__/plugins/iCheck/all.css">
+	<link rel="stylesheet" href="__STATIC__/customer/css/customer.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -53,14 +54,13 @@
 
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="__STATIC__/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">小松果</span>
+                            <img src="__STATIC__/dist/img/jason.jpg" class="user-image" alt="User Image"> <span class="hidden-xs">{{$username}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <!-- User image -->
+	                        <!-- UserModel image -->
                             <li class="user-header">
-                                <img src="__STATIC__/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                                <img src="__STATIC__/dist/img/jason.jpg" class="img-circle" alt="User Image">
+    
                                 <p>
                                     物联网开发者
                                     <small>从横物联网界20年</small>
@@ -84,10 +84,10 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">个人资料</a>
+	                                <a href="{{:url('index/user/index')}}" class="btn btn-default btn-flat">个人资料</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">退出登录</a>
+	                                <a href="{{:url('index/login/loginOut')}}" class="btn btn-default btn-flat">退出登录</a>
                                 </div>
                             </li>
                         </ul>
@@ -107,9 +107,9 @@
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="__STATIC__/pages/forms/general.html"><i class="fa fa-circle-o"></i> 产品详情</a></li>
-                        <li><a href="__STATIC__/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> 产品编辑</a></li>
-                        <li><a href="__STATIC__/pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a>
+                        <li><a href="{{:url('product/index')}}"><i class="fa fa-circle-o"></i> 产品详情</a></li>
+                        <li><a href="{{:url('product/edit')}}"><i class="fa fa-circle-o"></i> 产品编辑</a></li>
+                        <li><a href="{{:url('product/create')}}"><i class="fa fa-circle-o"></i> 产品添加</a>
                         </li>
                     </ul>
                 </li>
@@ -120,7 +120,7 @@
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{:url('index')}}"><i class="fa fa-circle-o"></i> 设备列表</a></li>
+                        <li><a href="{{:url('index/index')}}"><i class="fa fa-circle-o"></i> 设备列表</a></li>
                         <li><a href="__STATIC__/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> 添加设备</a></li>
                         <li><a href="__STATIC__/pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a>
                         </li>
@@ -132,7 +132,7 @@
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="__STATIC__/pages/examples/setting_list.html"><i class="fa fa-circle-o"></i> 规则列表</a>
+                        <li><a href="{{:url('index/trigger/index')}}"><i class="fa fa-circle-o"></i> 规则列表</a>
                         </li>
                         <li><a href="__STATIC__/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> 添加触发器</a></li>
                         <li><a href="__STATIC__/pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a>
@@ -208,14 +208,26 @@
 <script src="__STATIC__/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="__STATIC__/dist/js/demo.js"></script>
+<!--HighChart-->
+<script src="__STATIC__//plugins/highchart/highcharts.js"></script>
+
 <!-- iCheck 1.0.1 -->
 <script src="__STATIC__/plugins/iCheck/icheck.min.js"></script>
+<!--甜心提示-->
 <script src="__STATIC__/plugins/sweetalter/sweetalert.min.js"></script>
+<!--奈斯验证-->
+<script src="__STATIC__/plugins/nice-validator/src/jquery.validator.js"></script>
+<!--奈斯验证中文-->
+<script src="__STATIC__/plugins/nice-validator/dist/local/zh-CN.js"></script>
+<!--pjax 部分加载-->
+<script src="__STATIC__/plugins/pjax/jquery.pjax.js"></script>
+<!--用户自定义js-->
 <script src="__STATIC__/customer/js/customer.js"></script>
 
 <script>
     $(document).ready(function () {
-        $('.sidebar-menu').tree()
+        $('.sidebar-menu').tree();
+        
     })
 </script>
 {{block name="js"}} {{/block}}
