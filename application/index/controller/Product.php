@@ -48,10 +48,15 @@ class Product extends BaseController
         }
     }
 
+    /**
+     * @return mixed
+     * @throws \think\exception\DbException
+     */
     public function edit()
     {
         $product_id = $this->request->param('product_id');
-        $one = ProductModel::get($product_id)->hidden(['create_time', 'update_time']);
+        $product_id = 1;
+        $one = ProductModel::get($product_id)->hidden(['create_time', 'update_time'])->toJson();
         $this->assign([
             'one'     => $one,
             'action'  => $this->request->action(),
@@ -61,7 +66,16 @@ class Product extends BaseController
 
     public function update()
     {
-        dump($this->request->param());
+        $param = request()->param();
+        $flag = $this->validate($param, 'CommonValidate.add_product');
+        if ($flag === true) {
+            $device = new ProductModel();
+            $device->newUpdate($param['id'], $param);
+            $this->redirect('index', ['flag' => 'update_success']);
+        } else {
+            $this->error('编辑失败');
+        }
+
     }
 
 

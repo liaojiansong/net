@@ -134,6 +134,7 @@
 							<form role="form" method="post" action="{{:url('index/product/update')}}">
 						{{/if}}
 							<!-- text input -->
+								<input type="hidden" class="form-control" name="id">
 							<div class="form-group">
 								<label>产品名称：</label>
 								<input type="text" class="form-control" name="product_name" placeholder="请输入产品名称" data-rule="required">
@@ -249,7 +250,7 @@
 {{block name="js"}}
 <script>
     $(function () {
-        popInput('{{$one}}');
+        popInput('{{$one ?? false}}');
     });
 </script>
 

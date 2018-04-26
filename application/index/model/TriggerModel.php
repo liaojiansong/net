@@ -13,9 +13,9 @@ use Redis;
 
 class TriggerModel extends BaseModel
 {
-    protected $table = 'trigger';
+    protected $table = 'triggers';
     // 可写入字段
-    protected static $fillable = ['device_id', 'target_condition', 'target_type', 'phone','email'];
+    protected static $fillable = ['device_id', 'trigger_name','target_condition', 'target_type','trigger_value','phone_check', 'phone','email_check','email'];
 
     public static function newCreate($param, $fillable = null)
     {

@@ -77,14 +77,6 @@ class Index extends BaseController
         return $this->fetch('device-detail');
     }
 
-    /**
-     * 添加触发器
-     * @return mixed
-     */
-    public function addTrigger()
-    {
-        return $this->fetch('add_trigger');
-    }
 
     /**
      * 删除设备(ajax)

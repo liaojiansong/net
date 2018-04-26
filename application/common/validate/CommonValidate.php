@@ -34,6 +34,13 @@ class CommonValidate extends Validate
         'product_industry' => 'require',
         'product_description' => 'require',
 
+        /**
+         * 触发器添加
+         */
+        'device_id' => 'require',
+        'trigger_name' => 'require',
+        'target_condition' => 'require',
+        'trigger_value' => 'require',
 
     ];
     protected $message = [
@@ -63,12 +70,21 @@ class CommonValidate extends Validate
         'product_industry.require' => '产品行业必须',
         'product_description.require' => '产品描述必须',
 
+        /**
+         * 触发器添加
+         */
+        'device_id.require' => '关联设备出错',
+        'trigger_name.require' => '触发器名称必须',
+        'target_condition.require' => '触发条件必须',
+        'trigger_value.require' => '阈值必须',
+
     ];
     protected $scene = [
         'edit' => ['name', 'age'],
         'add_user' => ['name', 'phone', 'email', 'password', 'confirm_password'],
         'add_device' => ['device_name', 'device_auth'],
         'add_product' => ['product_name', 'product_industry','product_description'],
+        'add_trigger' => ['device_id', 'trigger_name','target_condition','trigger_value'],
     ];
 
 }

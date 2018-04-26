@@ -10,12 +10,74 @@ namespace app\index\controller;
 
 
 use app\common\BaseController;
+use app\index\model\TriggerModel;
+use function dump;
 
 class Trigger extends BaseController
 {
     public function index()
     {
+        $this->assign([
+            'flag' => $this->request->param('flag') ?? null,
+        ]);
         return $this->fetch('trigger-list');
+    }
+
+    public function create()
+    {
+        $param = $this->request->param();
+        $this->assign([
+            'device_id' => $param['device_id'] ?? null,
+        ]);
+        return $this->fetch('trigger-edit');
+    }
+
+    public function store()
+    {
+        $param = $this->request->param();
+        $flag = $this->validate($param, 'CommonValidate.add_trigger');
+        // 验证成功
+        if ($flag === true) {
+            $res = TriggerModel::newCreate($param);
+            if ($res) {
+                $this->redirect('index', ['flag' => 'create_success']);
+            } else {
+                $this->error('添加触发器失败');
+            }
+            // 验证失败
+        } else {
+            $this->error($flag);
+        }
+    }
+
+    /**
+     * @return mixed
+     * @throws \think\exception\DbException
+     */
+    public function edit()
+    {
+        $product_id = $this->request->param('product_id');
+        $product_id = 1;
+        $one = ProductModel::get($product_id)->hidden(['create_time', 'update_time'])->toJson();
+        $this->assign([
+            'one' => $one,
+            'action' => $this->request->action(),
+        ]);
+        return $this->fetch('product-edit');
+    }
+
+    public function update()
+    {
+        $param = request()->param();
+        $flag = $this->validate($param, 'CommonValidate.add_product');
+        if ($flag === true) {
+            $device = new ProductModel();
+            $device->newUpdate($param['id'], $param);
+            $this->redirect('index', ['flag' => 'update_success']);
+        } else {
+            $this->error('编辑失败');
+        }
+
     }
 
 
