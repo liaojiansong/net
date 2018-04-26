@@ -50,7 +50,10 @@ class Product extends BaseController
 
     public function edit()
     {
+        $product_id = $this->request->param('product_id');
+        $one = ProductModel::get($product_id)->hidden(['create_time', 'update_time']);
         $this->assign([
+            'one'     => $one,
             'action'  => $this->request->action(),
         ]);
         return $this->fetch('product-edit');

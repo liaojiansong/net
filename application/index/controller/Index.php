@@ -51,8 +51,10 @@ class Index extends BaseController
     }
 
     /**
-     * 设备详情
      * @return mixed
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function detail()
     {

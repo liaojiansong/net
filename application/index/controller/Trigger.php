@@ -18,4 +18,5 @@ class Trigger extends BaseController
         return $this->fetch('trigger-list');
     }
 
+
 }
