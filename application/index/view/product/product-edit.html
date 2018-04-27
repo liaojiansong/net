@@ -128,12 +128,8 @@
 					<div class="col-lg-2">
 					</div>
 					<div class="col-lg-8">
-						{{if condition="($action == 'create')"}}
-							<form role="form" method="post" action="{{:url('index/product/store')}}">
-						{{else /}}
-							<form role="form" method="post" action="{{:url('index/product/update')}}">
-						{{/if}}
-							<!-- text input -->
+                        {include file="public/form-herder" /}
+                        <!-- text input -->
 								<input type="hidden" class="form-control" name="id">
 							<div class="form-group">
 								<label>产品名称：</label>

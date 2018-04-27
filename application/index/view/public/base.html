@@ -66,28 +66,13 @@
                                     <small>从横物联网界20年</small>
                                 </p>
                             </li>
-                            <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">花花</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">星星</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">朋友圈</a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
-                            </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-	                                <a href="{{:url('index/user/index')}}" class="btn btn-default btn-flat">个人资料</a>
+	                                <a href="{{:url('index/user/index')}}" class="btn btn-info btn-flat">个人资料</a>
                                 </div>
                                 <div class="pull-right">
-	                                <a href="{{:url('index/login/loginOut')}}" class="btn btn-default btn-flat">退出登录</a>
+	                                <a href="{{:url('index/login/loginOut')}}" class="btn btn-warning btn-flat">退出登录</a>
                                 </div>
                             </li>
                         </ul>
@@ -120,7 +105,7 @@
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{:url('index/index')}}"><i class="fa fa-circle-o"></i> 设备列表</a></li>
+                        <li><a href="{{:url('devices/index')}}"><i class="fa fa-circle-o"></i> 设备列表</a></li>
                         <li><a href="__STATIC__/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> 添加设备</a></li>
                         <li><a href="__STATIC__/pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a>
                         </li>
@@ -137,15 +122,11 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-reorder"></i> <span>数据流模板</span>
+                        <i class="fa fa-reorder"></i> <span>数据管理</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="__STATIC__/pages/examples/setting_list.html"><i class="fa fa-circle-o"></i> 模板添加</a>
-                        </li>
-                        <li><a href="__STATIC__/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> 模板编辑</a></li>
-                        <li><a href="__STATIC__/pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a>
-                        </li>
+                        <li><a href="{{:url('DataTemplate/index')}}"><i class="fa fa-circle-o"></i> 数据流模板列表</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -154,24 +135,20 @@
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="__STATIC__/pages/examples/setting_list.html"><i class="fa fa-circle-o"></i> API列表</a>
-                        </li>
-                        <li><a href="__STATIC__/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> 添加API</a></li>
-                        <li><a href="__STATIC__/pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a>
+                        <li>
+                            <a href="__STATIC__/pages/examples/setting_list.html"><i class="fa fa-circle-o"></i> API列表</a>
                         </li>
                     </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-comments"></i> <span>设备群组</span>
+                        <i class="fa fa-comments"></i> <span>平台管理</span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="__STATIC__/pages/examples/setting_list.html"><i class="fa fa-circle-o"></i> 群组列表</a>
+                        <li><a href="__STATIC__/pages/examples/setting_list.html"><i class="fa fa-circle-o"></i> 用户列表</a>
                         </li>
-                        <li><a href="__STATIC__/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> 添加群组</a></li>
-                        <li><a href="__STATIC__/pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a>
-                        </li>
+                        <li><a href="__STATIC__/pages/forms/advanced.html"><i class="fa fa-circle-o"></i> 产品列表</a></li>
                     </ul>
                 </li>
             </ul>
@@ -182,9 +159,9 @@
     <!--网页底部-->
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 2.4.0
+            <b>Version</b> 1.0.1
         </div>
-        <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">adminlet官网</a>.</strong> All rights
+        <strong>Copyright &copy; 2014-2018 <a href="#">JasonNet.com</a>.</strong> All rights
         reserved.
     </footer>
 </div>
@@ -216,7 +193,7 @@
 <!--奈斯验证中文-->
 <script src="__STATIC__/plugins/nice-validator/dist/local/zh-CN.js"></script>
 <!--pjax 部分加载-->
-<script src="__STATIC__/plugins/pjax/jquery.pjax.js"></script>
+<!--<script src="__STATIC__/plugins/pjax/jquery.pjax.js"></script>-->
 <!--用户自定义js-->
 <script src="__STATIC__/customer/js/customer.js"></script>
 

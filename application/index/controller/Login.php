@@ -73,7 +73,7 @@ class Login extends Controller
         $password = request()->param('password');
         $res = $this->checkPassword($phone, $password);
         if ($res['flag'] === true) {
-            $this->redirect('index/index');
+            $this->redirect('product/index');
         } else {
             $this->redirect('login/index');
         }

@@ -42,6 +42,13 @@ class CommonValidate extends Validate
         'target_condition' => 'require',
         'trigger_value' => 'require',
 
+        /**
+         * 数据流模板添加
+         */
+        'data_template_name' => 'require',
+        'unit_name' => 'require',
+        'unit_symbol' => 'require',
+
     ];
     protected $message = [
         'username.require' => '名称必须',
@@ -77,6 +84,12 @@ class CommonValidate extends Validate
         'trigger_name.require' => '触发器名称必须',
         'target_condition.require' => '触发条件必须',
         'trigger_value.require' => '阈值必须',
+        /**
+         * 数据流模板添加
+         */
+        'data_template_name.require' => '模板名称必须',
+        'unit_name.require' => '单位名称必须',
+        'unit_symbol.require' => '单位符号必须',
 
     ];
     protected $scene = [
@@ -85,6 +98,7 @@ class CommonValidate extends Validate
         'add_device' => ['device_name', 'device_auth'],
         'add_product' => ['product_name', 'product_industry','product_description'],
         'add_trigger' => ['device_id', 'trigger_name','target_condition','trigger_value'],
+        'add_template' => ['data_template_name', 'unit_name','unit_symbol'],
     ];
 
 }

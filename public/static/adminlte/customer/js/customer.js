@@ -22,7 +22,7 @@ function deleteAlert($url,$id,$_obj) {
                 $.ajax({
                     url: $url,
                     data: {'id':$id},
-                    type: 'get',
+                    type: 'post',
                     dataType: 'json',
                     success: function (info) {
                         if (info.flag === true) {
@@ -203,7 +203,6 @@ function popInput(data) {
  * 添加或编辑成功时的提示
  */
 function info(flag) {
-    console.log(flag);
     if (flag === 'create_success') {
         toastr.success('添加成功');
     }else if(flag === 'update_success') {

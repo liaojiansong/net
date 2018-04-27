@@ -1,7 +1,7 @@
 {{extend name="public:base" /}}
 <!--标题-->
 {{block name="title"}}
-设备列表
+触发器列表
 {{/block}}
 
 <!--主体-->
@@ -39,10 +39,11 @@
 						<table id="example1" class="table table-bordered table-hover text-center">
 							<colgroup>
 								<col class="col-md-2">
+								<col class="col-md-1">
 								<col class="col-md-2">
 								<col class="col-md-3">
-								<col class="col-md-3">
 								<col class="col-md-2">
+								<col class="col-md-1">
 							</colgroup>
 							<thead>
 							<tr>
@@ -50,30 +51,42 @@
 								<th class="text-center">触发条件</th>
 								<th class="text-center">受控设备</th>
 								<th class="text-center">报警方式</th>
+								<th class="text-center">报警信息</th>
 								<th class="text-center">操作</th>
 							</tr>
 							</thead>
 							<tbody>
+                            {{volist name='list' id='value'}}
 								<tr>
 									<td>
-										<p>高温报警</p>
+										<p>{{$value.trigger_name ?? nul}}</p>
 										<p>数据模板:temp</p>
-										<p>创建时间:2018-04-25 22:18:36</p>
+										<p>创建时间:{{$value.create_time ?? nul}}</p>
 									</td>
-									<td>>=58</td>
-									<td>小米6</td>
-									<td>729631422@qq.com</td>
+									<td>{{$value.target_condition ?? nul}}</td>
 									<td>
-										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="编辑" href="{{:url('edit',['id'=>1])}}"><i class="glyphicon glyphicon-edit"></i></a>
-										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="删除" onclick="deleteAlert('{{:url(\'delete\')}}','2',$(this))"><i class="glyphicon glyphicon-trash"></i></a>
+                                        <p>设备名称:{{$value.device.device_name ?? nul}}</p>
+                                        <p>设备ID:{{$value.device.id ?? null}}</p>
+                                    </td>
+									<td>
+                                        <p>{{$value.email ?? nul}}</p>
+                                        <p>{{$value.phone ?? nul}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{$value.report_msg ?? nul}}</p>
+                                    </td>
+									<td>
+										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="编辑" href="{{:url('edit',['id'=>$value.id])}}"><i class="glyphicon glyphicon-edit"></i></a>
+										<a class="btn btn-social-icon btn-default" data-toggle="tooltip" data-placement="top" title="删除" onclick="deleteAlert(`{{:url('trigger/delete')}}`,'{{$value.id}}',$(this))"><i class="glyphicon glyphicon-trash"></i></a>
 									</td>
 								
 								</tr>
+                                {{/volist}}
 							</tbody>
 						</table>
-						<div class="pull-right">
-				
-						</div>
+                        <div class="pull-right">
+                            {{$list->render()}}
+                        </div>
 					</div>
 					<!-- /.box-body -->
 				</div>

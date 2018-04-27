@@ -1,7 +1,7 @@
 {{extend name="public:base" /}}
 <!--页面标题-->
 {{block name="title"}}
-添加触发器
+添加/编辑触发器
 {{/block}}
 
 {{block name="main"}}
@@ -10,7 +10,7 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-			添加触发器
+            添加/编辑触发器
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
@@ -30,9 +30,13 @@
 					
 					</div>
 					<div class="col-xs-6 col-md-8">
-						<form role="form" action="{{:url('store')}}" method="post">
+                        {{include file="public/form-header" /}}
 							<div class="box-body">
-								<input type="hidden" class="form-control" name="device_id" value="{{$device_id ?? null}}">
+                                <input type="hidden" name="id">
+                                <div class="form-group">
+                                    <label for="device_id">设备id</label>
+                                    <input type="text" class="form-control" name="device_id" id="device_id" value="{{$device_id ?? null}}" readonly>
+                                </div>
 								<div class="form-group">
 									<label for="trigger_name">触发器名称</label>
 									<input type="text" class="form-control" name="trigger_name"  id="trigger_name" data-rule="required;min:2">
@@ -70,31 +74,23 @@
 								</div>
 								<!--todo CheckBox填充-->
 								<div class="form-group">
-									<label for="email">邮箱</label> <input type="email" class="form-control" id="email" name="email" data-rule="required;email">
+									<label for="email">邮箱</label>
+                                    <input type="email" class="form-control" id="email" name="email" data-rule="required;email">
 								</div>
 								<div class="form-group">
-									<label for="phone">手机号</label> <input type="text" class="form-control" id="phone" name="phone" data-rule="required;mobile">
+									<label for="phone">手机号</label>
+                                    <input type="text" class="form-control" id="phone" name="phone" data-rule="required;mobile">
 								</div>
 								<div class="form-group">
-									<label for="msg">报警信息</label> <input type="text" class="form-control" id="report_msg"  name="report_msg" data-rule="required">
+									<label for="report_msg">报警信息</label>
+                                    <input type="text" class="form-control" id="report_msg"  name="report_msg" data-rule="required">
 								</div>
 							</div>
-							<!-- /.box-body -->
-							
-							<div class="box-footer text-center">
-								<button type="reset" class="btn btn-info">取消</button>
-								<button type="submit" class="btn btn-success">提交</button>
-							</div>
-						</form>
+                        {{include file="public/form-footer" /}}
 					</div>
 				</div>
 				<div class="col-xs-6 col-md-2"></div>
 			</div>
-			<!-- /.box-body -->
-			<div class="box-footer">
-				Footer
-			</div>
-			<!-- /.box-footer-->
 		</div>
 		<!-- /.box -->
 	
@@ -107,6 +103,10 @@
     $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
         checkboxClass: 'icheckbox_flat-green',
         radioClass: 'iradio_flat-green'
-    })
+    });
+    $(function () {
+       popInput('{{$one ?? false}}')
+    });
+
 </script>
 {{/block}}

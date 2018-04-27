@@ -15,7 +15,7 @@ class TriggerModel extends BaseModel
 {
     protected $table = 'triggers';
     // 可写入字段
-    protected static $fillable = ['device_id', 'trigger_name','target_condition', 'target_type','trigger_value','phone_check', 'phone','email_check','email'];
+    protected static $fillable = ['device_id','trigger_name','target_condition', 'target_type','trigger_value','phone_check', 'phone','email_check','email','report_msg',];
 
     public static function newCreate($param, $fillable = null)
     {
@@ -31,6 +31,11 @@ class TriggerModel extends BaseModel
     public function deviceData()
     {
         return $this->hasMany('DeviceDataMode', 'devices_id');
+    }
+
+    public function device()
+    {
+        return $this->belongsTo('DevicesModel', 'device_id');
     }
     public static function getRedis($host = '127.0.0.1')
     {
