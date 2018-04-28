@@ -10,8 +10,8 @@ namespace app\index\controller;
 
 
 use app\common\BaseController;
+use app\index\model\ProductIndustryModel;
 use app\index\model\ProductModel;
-use function dump;
 
 class Product extends BaseController
 {
@@ -23,10 +23,21 @@ class Product extends BaseController
         return $this->fetch('product-index');
     }
 
+    public function product_list()
+    {
+        $list = ProductModel::withCount(['devices'])->with(['user', 'product_industry'])->paginate(5);
+        $this->assign([
+            'list' => $list,
+        ]);
+        return $this->fetch('product-list');
+    }
+
     public function create()
     {
+        $options = ProductIndustryModel::select_option();
         $this->assign([
             'action' => $this->request->action(),
+            'options' => $options,
         ]);
         return $this->fetch('product-edit');
     }
@@ -57,9 +68,11 @@ class Product extends BaseController
         $product_id = $this->request->param('product_id');
         $product_id = 1;
         $one = ProductModel::get($product_id)->hidden(['create_time', 'update_time'])->toJson();
+        $options = ProductIndustryModel::select_option();
         $this->assign([
             'one'     => $one,
             'action'  => $this->request->action(),
+            'options'  => $options,
         ]);
         return $this->fetch('product-edit');
     }
@@ -75,7 +88,6 @@ class Product extends BaseController
         } else {
             $this->error('编辑失败');
         }
-
     }
 
 

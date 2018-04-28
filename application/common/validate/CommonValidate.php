@@ -31,7 +31,7 @@ class CommonValidate extends Validate
          * 产品添加
          */
         'product_name' => 'require',
-        'product_industry' => 'require',
+        'product_industry_id' => 'require',
         'product_description' => 'require',
 
         /**
@@ -74,7 +74,7 @@ class CommonValidate extends Validate
          * 产品添加
          */
         'product_name.require' => '产品名必须',
-        'product_industry.require' => '产品行业必须',
+        'product_industry_id.require' => '产品行业必须',
         'product_description.require' => '产品描述必须',
 
         /**
