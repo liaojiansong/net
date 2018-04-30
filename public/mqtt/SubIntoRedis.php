@@ -7,10 +7,19 @@
  */
 ignore_user_abort(); // 后台运行
 set_time_limit(0); // 取消脚本运行时间的超时上限
-require_once('MysqliDb.php');
 require_once('Base.php');
 class SubIntoRedis extends Base
 {
+    private $mqtt = null;
+    public function __construct()
+    {
+        parent::__construct();
+
+        $mqtt = new Mosquitto\Client();
+        $mqtt->connect(self::host, 1883, 50);
+        $this->mqtt = $mqtt;
+    }
+
     /**
      * 订阅并写入redis
      */

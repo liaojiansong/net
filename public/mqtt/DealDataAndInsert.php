@@ -1,13 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
+ * 处理订阅消息并插入redis的脚本
+ * User: Jason
  * Date: 2018/4/21
  * Time: 13:07
  */
 ignore_user_abort(); // 后台运行
 set_time_limit(0); // 取消脚本运行时间的超时上限
-require_once('MysqliDb.php');
 require_once('Base.php');
 class DealDataAndInsert extends Base
 {

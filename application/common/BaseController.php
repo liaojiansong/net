@@ -73,7 +73,7 @@ class BaseController extends Controller
     protected function checkLogin()
     {
         if (!Session::has('user_info')) {
-            $this->redirect('index/login/index');
+            $this->redirect('index/Login/index');
         }
     }
 
