@@ -3,13 +3,10 @@
 namespace app\index\controller;
 
 use app\common\BaseController;
-use app\common\CommonController;
 use app\index\model\DeviceDataMode;
 use app\index\model\DevicesModel;
-use function dump;
-use function input;
-use function request;
 use think\Session;
+use function request;
 
 class Devices extends BaseController
 {

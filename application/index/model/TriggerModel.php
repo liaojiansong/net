@@ -57,18 +57,10 @@ class TriggerModel extends BaseModel
      * @return bool
      */
     // TODO 新增一条触发器以后将其写入redis
-    public static function addTargetIntoRedis($trigger_name,$device_id,$report_type,$target_condition,$target_value,$email,$phone)
+    public static function addTargetIntoRedis($device_id, $trigger_info)
     {
         $redis = self::getRedis();
-        $res = $redis->hMset('target_' . $device_id, [
-            'trigger_name' => $trigger_name,
-            'device_id' => $device_id,
-            'target_condition' => $target_condition,
-            'report_type' => $report_type, // email|phone
-            'target_value' => $target_value,
-            'email' => $email,
-            'phone' => $phone,
-        ]);
+        $res = $redis->hMset('target_' . $device_id, $trigger_info);
         $redis->close();
         if ($res) {
             return true;
