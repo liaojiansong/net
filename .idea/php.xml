@@ -12,6 +12,7 @@
       <path value="$PROJECT_DIR$/vendor/topthink/think-helper" />
       <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte" />
       <path value="$PROJECT_DIR$/vendor/joshcam/mysqli-database-class" />
+      <path value="$PROJECT_DIR$/vendor/needim/noty" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
