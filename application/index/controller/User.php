@@ -19,14 +19,7 @@ class User extends BaseController
         return $this->fetch('user-index');
     }
 
-    public function user_list()
-    {
-        $list = UserModel::withCount('products')->paginate(5);
-        $this->assign([
-            'list' => $list,
-        ]);
-        return $this->fetch('user-list');
-    }
+
 
     public function create()
     {

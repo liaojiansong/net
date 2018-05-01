@@ -12,13 +12,13 @@ namespace app\index\controller;
 use app\common\BaseController;
 use app\index\model\TriggerModel;
 use function request;
+use think\Session;
 
 class Trigger extends BaseController
 {
     public function index()
     {
-        // TODO 分页有问题
-        $list = TriggerModel::with('device')->paginate(100);
+        $list = TriggerModel::with('device')->where('product_id',Session::get('product_id'))->paginate(6);
         $this->assign([
             'flag' => $this->request->param('flag') ?? null,
             'list' => $list,
@@ -38,6 +38,7 @@ class Trigger extends BaseController
     public function store()
     {
         $param = $this->request->param();
+        $param['product_id'] = Session::get('product_id');
         $flag = $this->validate($param, 'CommonValidate.add_trigger');
         // 验证成功
         if ($flag === true) {

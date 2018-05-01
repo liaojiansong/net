@@ -10,13 +10,13 @@ namespace app\index\controller;
 
 use app\common\BaseController;
 use app\index\model\DataTemplateModel;
+use think\Session;
 
 class DataTemplate extends BaseController
 {
     public function index()
     {
-        // TODO 分页有问题
-        $list = DataTemplateModel::paginate(100);
+        $list = DataTemplateModel::where('product_id',Session::get('product_id'))->paginate(8);
         $this->assign([
             'flag' => $this->request->param('flag') ?? null,
             'list' => $list,
@@ -26,10 +26,12 @@ class DataTemplate extends BaseController
 
     public function create()
     {
-        $flag = $this->validate($this->request->param(), 'CommonValidate.add_template');
+        $param = $this->request->param();
+        $flag = $this->validate($param, 'CommonValidate.add_template');
         // 验证成功
         if ($flag === true) {
-            $res = DataTemplateModel::newCreate($this->request->param());
+            $param['product_id'] = Session::get('product_id');
+            $res = DataTemplateModel::newCreate($param);
             if ($res) {
                 $is_success = true;
                 $msg = "添加模板成功";

@@ -1,4 +1,4 @@
-{{if condition="($Request.action == 'create')"}}
+{{if condition="($Request.action == 'create' || $Request.action == 'create_product')"}}
     <form role="form" id="form" method="post" action="{{:url('store')}}">
 {{else /}}
     <form role="form" method="post" action="{{:url('update')}}">

@@ -10,8 +10,10 @@ namespace app\index\controller;
 
 
 use app\common\BaseController;
+use app\index\model\DevicesModel;
 use app\index\model\ProductIndustryModel;
 use app\index\model\ProductModel;
+use think\Db;
 
 class Product extends BaseController
 {
@@ -23,14 +25,7 @@ class Product extends BaseController
         return $this->fetch('product-index');
     }
 
-    public function product_list()
-    {
-        $list = ProductModel::withCount(['devices'])->with(['user', 'product_industry'])->paginate(5);
-        $this->assign([
-            'list' => $list,
-        ]);
-        return $this->fetch('product-list');
-    }
+
 
     public function create()
     {
@@ -66,7 +61,6 @@ class Product extends BaseController
     public function edit()
     {
         $product_id = $this->request->param('product_id');
-        $product_id = 1;
         $one = ProductModel::get($product_id)->hidden(['create_time', 'update_time'])->toJson();
         $options = ProductIndustryModel::select_option();
         $this->assign([
@@ -88,6 +82,16 @@ class Product extends BaseController
         } else {
             $this->error('编辑失败');
         }
+    }
+
+    public function delete()
+    {
+        $id = $this->request->param('id');
+        Db::transaction(function () use ($id) {
+            ProductModel::destroy($id);
+            DevicesModel::destroy(['product_id' => $id]);
+        });
+        return self::ajaxMsg();
     }
 
 
