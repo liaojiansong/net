@@ -14,7 +14,7 @@ require '../../vendor/autoload.php';
 //require '../../vendor/phpmailer/phpmailer/src/Exception.php';
 //require '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 //require '../../vendor/phpmailer/phpmailer/src/SMTP.php';
-class Report extends Base
+class Report
 {
     /**
      * 发送邮件
