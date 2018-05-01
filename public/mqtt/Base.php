@@ -7,7 +7,7 @@
 require_once('../../vendor/joshcam/mysqli-database-class/MysqliDb.php');
 class Base
 {
-    protected $mysql = null;
+//    protected $mysql = null;
     protected $redis = null;
 
     const table = 'device_data';
@@ -15,8 +15,8 @@ class Base
 
     public function __construct()
     {
-        $db = new MysqliDb(self::host, 'root', 'liao325339', 'jasonnet');
-        $this->mysql = $db;
+//        $db = new MysqliDb(self::host, 'root', 'liao325339', 'jasonnet');
+//        $this->mysql = $db;
 
         $redis = new Redis();
         $redis->connect(self::host);
