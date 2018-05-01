@@ -4,7 +4,7 @@
  * @User: Jason
  * @Date: 2018/4/26
  */
-require_once('MysqliDb.php');
+require_once('../../vendor/joshcam/mysqli-database-class/MysqliDb.php');
 class Base
 {
     protected $mysql = null;
