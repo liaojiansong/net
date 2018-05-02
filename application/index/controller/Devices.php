@@ -3,13 +3,10 @@
 namespace app\index\controller;
 
 use app\common\BaseController;
-use app\common\CommonController;
 use app\index\model\DeviceDataMode;
 use app\index\model\DevicesModel;
-use function dump;
-use function input;
-use function request;
 use think\Session;
+use function request;
 
 class Devices extends BaseController
 {
@@ -21,7 +18,7 @@ class Devices extends BaseController
     public function index()
     {
         request()->has('product_id') ? Session::set('product_id',request()->param('product_id')) : null;
-        $devices_list = DevicesModel::where('product_id',Session::get('product_id'))->paginate(5);
+        $devices_list = DevicesModel::where('product_id',Session::get('product_id'))->paginate(2);
         $this->assign([
             'devices_list' => $devices_list,
         ]);

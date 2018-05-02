@@ -31,8 +31,7 @@ use think\model\relation\MorphTo;
  * @package think
  * @mixin Query
  */
-abstract class
-Model implements \JsonSerializable, \ArrayAccess
+abstract class Model implements \JsonSerializable, \ArrayAccess
 {
     // 数据库查询对象池
     protected static $links = [];

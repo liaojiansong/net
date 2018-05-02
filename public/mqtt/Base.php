@@ -15,7 +15,7 @@ class Base
 
     public function __construct()
     {
-        $db = new MysqliDb(self::host, 'root', '123456', 'jasonnet');
+        $db = new MysqliDb(self::host, 'root', 'liao325339', 'jasonnet');
         $this->mysql = $db;
 
         $redis = new Redis();

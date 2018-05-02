@@ -101,7 +101,9 @@ class DealDataAndInsert extends Base
         if ($flag) {
             // 获取信息, 返回的是数组
             $target_info = $this->redis->hGetAll($target_name);
+            // 触发条件
             $target_condition = $target_info['target_condition'];
+            // 阈值
             $target_value = $target_info['target_value'];
             // 数字才判断
             if (is_numeric($need_check) && is_numeric($target_value)) {
@@ -138,14 +140,11 @@ class DealDataAndInsert extends Base
                         break;
                 }
             }
-            if ($is_report) {
-                // 将发送的值写进$target_name
-                $this->redis->hSet($target_name, 'send_value', $need_check);
-                $this->redis->lPush('report_list', $target_name);
-            };
         }
 
         if ($is_report) {
+            // 将发送的值写进$target_name
+            $this->redis->hSet($target_name, 'send_value', $need_check);
             $this->redis->lPush('report_list', $target_name);
             return true;
         } else {

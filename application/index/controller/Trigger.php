@@ -44,6 +44,7 @@ class Trigger extends BaseController
         if ($flag === true) {
             $res = TriggerModel::newCreate($param);
             if ($res) {
+                TriggerModel::addTargetIntoRedis($param['device_id'], $param);
                 $this->redirect('index', ['flag' => 'create_success']);
             } else {
                 $this->error('添加触发器失败');
